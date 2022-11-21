@@ -1,0 +1,54 @@
+extends layouts/mini-layout.pug
+block styles
+    link(rel="stylesheet", href="/css/forms.css")
+    link(rel="stylesheet", href="/css/product.css")
+block content    
+    main 
+        h1 My Products 
+        //- p #{prods[0].title}
+
+        if prods.length >0
+            p List of all the products
+            .grid 
+                each product in prods
+                    article.card.product-item 
+                        header.card__header 
+                            h1.product__title #{product.title} 
+                        .card__image 
+                            img(src="/img/book.jpg" ,alt="A Book")   
+                        .card__content  
+                            h2.product__price $19.99
+                            p.product__description A very interesting book about so many even more interesting things! 
+                        .card__actions   
+                            button.btn Add to Cart
+        else 
+            p No product is available  
+            
+
+    
+
+
+
+
+        //- <div class="grid">
+        //-     <article class="card product-item">
+        //-         <header class="card__header">
+        //-             <h1 class="product__title">Great Book</h1>
+        //-         </header>
+        //-         <div class="card__image">
+        //-             <img src="https://cdn.pixabay.com/photo/2016/03/31/20/51/book-1296045_960_720.png" alt="A Book">
+        //-         </div>
+        //-         <div class="card__content">
+        //-             <h2 class="product__price">$19.99</h2>
+        //-             <p class="product__description">A very interesting book about so many even more interesting things!</p>
+        //-         </div>
+        //-         <div class="card__actions">
+        //-             <button class="btn">Add to Cart</button>
+        //-         </div>
+        //-     </article>
+        //- </div>            
+
+        //- - var n=0
+        //- ul
+        //-     while n<6
+        //-         li=n++
