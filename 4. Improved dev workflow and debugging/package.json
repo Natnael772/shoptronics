@@ -1,0 +1,13 @@
+{
+  "name": "4.-improved-dev-workflow-and-debugging",
+  "version": "1.0.0",
+  "description": "node.js dev workflow and debugging",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "start-server": "node app.js"
+  },
+  "author": "Natnael",
+  "license": "ISC"
+}
