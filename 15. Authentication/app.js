@@ -56,7 +56,7 @@ app.use((req, res, next) => {
   if (!req.session.user) {
     return next();
   }
-  User.findByPk(req.session.user.id)
+  User.findOne({ where: { email: req.session.user.email } })
     .then((user) => {
       req.user = user;
       next();
@@ -96,26 +96,34 @@ Order.belongsTo(User);
 User.hasMany(Order);
 Order.belongsToMany(Product, { through: OrderItem });
 
-//sync and create table and relation
 sequelize
   .sync()
   .then((result) => {
-    return User.findByPk(1);
-    // console.log(result);
-  })
-  .then((user) => {
-    if (!user) {
-      User.create({ name: "Natnael", email: "natnaeldeyas0@gmail.com" });
-    }
-    return user;
-  })
-  .then((user) => {
-    // console.log(user);
-    return user.createCart();
-  })
-  .then((cart) => {
-    // console.log(cart);
-    console.log("cart created");
+    console.log("Synced successfully");
     app.listen(8080);
   })
   .catch((err) => console.log(err));
+
+//sync and create table and relation
+// sequelize
+//   .sync()
+//   .then((result) => {
+//     return User.findByPk(1);
+//     // console.log(result);
+//   })
+//   .then((user) => {
+//     if (!user) {
+//       User.create({ email: "natnaeldeyas0@gmail.com", password: "123" });
+//     }
+//     return user;
+//   })
+//   .then((user) => {
+//     // console.log(user);
+//     return user.createCart();
+//   })
+//   .then((cart) => {
+//     // console.log(cart);
+//     console.log("cart created");
+//     app.listen(8080);
+//   })
+//   .catch((err) => console.log(err));
