@@ -2,6 +2,9 @@ const db = require("../util/database");
 const Product = require("../models/product");
 
 exports.getAddproduct = (req, res, next) => {
+  if (!req.session.isLoggedIn) {
+    return res.redirect("/login");
+  }
   res.render("admin/add-product", {
     docTitle: "Add Product",
     path: "/admin/add-product",
@@ -11,6 +14,10 @@ exports.getAddproduct = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
+
+  if (!req.session.isLoggedIn) {
+    return res.redirect("/login");
+  }
   const title = req.body.title;
   const price = req.body.price;
   const imageUrl = req.body.imageUrl;
@@ -39,6 +46,9 @@ exports.postAddProduct = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 exports.getProducts = (req, res, next) => {
+  if (!req.session.isLoggedIn) {
+    return res.redirect("/login");
+  }
   // db.execute("SELECT * FROM products").then(()=>{
   //   res.redirect("/");
   // }).catch(err=>console.log(err))
@@ -58,6 +68,10 @@ exports.getProducts = (req, res, next) => {
 };
 
 exports.getEditProduct = (req, res, next) => {
+  
+  if (!req.session.isLoggedIn) {
+    return res.redirect("/login");
+  }
   const prodId = req.params.productId;
   console.log(prodId);
 
@@ -111,6 +125,9 @@ exports.getEditProduct = (req, res, next) => {
   // });
 };
 exports.postEditProduct = (req, res, next) => {
+  if (!req.session.isLoggedIn) {
+    return res.redirect("/login");
+  }
   const prodId = req.body.productId;
   console.log(prodId);
   const updatedTitle = req.body.title;
