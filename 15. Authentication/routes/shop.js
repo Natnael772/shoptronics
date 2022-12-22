@@ -7,24 +7,8 @@ const isAuth = require("../middleware/is-auth");
 const shopController = require("../controllers/shop");
 
 router.get("/", isAuth, shopController.getIndex);
-// router.get("/", (req, res, next) => {
-//   let sql = "select * from products";
-//   db.query(sql, (err, data, fields) => {
-//     if (err) throw err;
-
-//     console.log(fields);
-//     res.render("shop/index", {
-//       prods: data,
-//       docTitle: "shop",
-//       path: "/",
-//     });
-//   });
-// });
 
 router.get("/products", shopController.getProducts);
-
-//put the spicific ones firest andx dynamic paths second
-// router.get("/products/delete");
 
 router.get("/products/:productId", shopController.getProduct);
 
