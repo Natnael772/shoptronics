@@ -4,8 +4,11 @@ const path = require("path");
 
 const session = require("express-session");
 
-//initialize dsequelize with session store
+//initialize sequelize with session store
 const sequelizeStore = require("connect-session-sequelize")(session.Store);
+const csrf = require("csurf");
+
+const csrfProtection = csrf();
 
 const adminData = require("./routes/admin");
 const shopRoutes = require("./routes/shop.js");
@@ -23,12 +26,6 @@ const Order = require("./models/order");
 const OrderItem = require("./models/order-item");
 
 const sequelize = require("./util/database");
-
-// db.execute("SELECT * FROM products")
-//   .then((result) => {
-//     console.log(result);
-//   })
-//   .catch((err) => console.log(err));
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -52,6 +49,8 @@ app.use(
 );
 store.sync();
 
+app.use(csrfProtection);
+
 app.use((req, res, next) => {
   if (!req.session.user) {
     return next();
@@ -69,18 +68,18 @@ app.use((req, res, next) => {
 //   next();
 // });
 
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.session.isLoggedIn;
+  res.locals.csrfToken = req.csrfToken();
+  console.log(res.locals);
+  next();
+});
+
 app.use("/admin", adminData.routes);
 app.use(shopRoutes);
 app.use(authRoutes);
 
 app.use(errController.get404Error);
-
-// const server = http.createServer(app);
-//in expressjs listen() does create http server
-// app.listen(8080, function (err) {
-//   if (err) console.log("Error occured");
-//   console.log("Server running on port 8080");
-// });
 
 //user created the product
 //ondelete cascade: if the user is deleted, the product will also be gone
@@ -103,27 +102,3 @@ sequelize
     app.listen(8080);
   })
   .catch((err) => console.log(err));
-
-//sync and create table and relation
-// sequelize
-//   .sync()
-//   .then((result) => {
-//     return User.findByPk(1);
-//     // console.log(result);
-//   })
-//   .then((user) => {
-//     if (!user) {
-//       User.create({ email: "natnaeldeyas0@gmail.com", password: "123" });
-//     }
-//     return user;
-//   })
-//   .then((user) => {
-//     // console.log(user);
-//     return user.createCart();
-//   })
-//   .then((cart) => {
-//     // console.log(cart);
-//     console.log("cart created");
-//     app.listen(8080);
-//   })
-//   .catch((err) => console.log(err));

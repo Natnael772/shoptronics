@@ -9,12 +9,10 @@ exports.getAddproduct = (req, res, next) => {
     docTitle: "Add Product",
     path: "/admin/add-product",
     editing: false,
-    isAuthenticated: req.session.isLoggedIn,
   });
 };
 
 exports.postAddProduct = (req, res, next) => {
-
   if (!req.session.isLoggedIn) {
     return res.redirect("/login");
   }
@@ -22,7 +20,6 @@ exports.postAddProduct = (req, res, next) => {
   const price = req.body.price;
   const imageUrl = req.body.imageUrl;
   const description = req.body.description;
-
 
   req.user
     .createProduct({
@@ -32,9 +29,7 @@ exports.postAddProduct = (req, res, next) => {
       description: description,
     })
     .then((result) => {
-      
       res.redirect("/");
-      
     })
     .catch((err) => console.log(err));
 };
@@ -49,7 +44,7 @@ exports.getProducts = (req, res, next) => {
         prods: products,
         docTitle: "Products",
         path: "/admin/products",
-        isAuthenticated: req.session.isLoggedIn,
+   
       });
     })
     .catch((err) => {
@@ -58,7 +53,6 @@ exports.getProducts = (req, res, next) => {
 };
 
 exports.getEditProduct = (req, res, next) => {
-  
   if (!req.session.isLoggedIn) {
     return res.redirect("/login");
   }
@@ -70,7 +64,6 @@ exports.getEditProduct = (req, res, next) => {
   if (!editMode) {
     res.redirect("/");
   }
-
 
   req.user
     .getProducts({ where: { id: prodId } })
@@ -86,13 +79,12 @@ exports.getEditProduct = (req, res, next) => {
         path: "/admin/edit-product",
         editing: editMode,
         product: product,
-        isAuthenticated: req.session.isLoggedIn,
+        
       });
     })
     .catch((err) => {
       console.log(err);
     });
-
 };
 exports.postEditProduct = (req, res, next) => {
   if (!req.session.isLoggedIn) {
@@ -131,7 +123,6 @@ exports.getDeleteProduct = (req, res, next) => {
 exports.postDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
   console.log(prodId);
-  
 
   Product.findByPk(prodId)
     .then((product) => {
@@ -145,4 +136,3 @@ exports.postDeleteProduct = (req, res, next) => {
       console.log(err);
     });
 };
-
