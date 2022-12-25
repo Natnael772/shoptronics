@@ -63,11 +63,6 @@ app.use((req, res, next) => {
     .catch((err) => console.log(err));
 });
 
-// app.use("/", (req, res, next) => {
-//   console.log("This one always runs");
-//   next();
-// });
-
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.isLoggedIn;
   res.locals.csrfToken = req.csrfToken();
