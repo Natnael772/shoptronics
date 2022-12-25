@@ -131,7 +131,7 @@ exports.getOrders = (req, res, next) => {
   if (!req.session.isLoggedIn) {
     return res.redirect("/login");
   }
-  //eager loading
+
   req.user
     .getOrders({ include: ["products"] })
     .then((orders) => {
