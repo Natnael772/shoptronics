@@ -5,6 +5,7 @@ const sequelize = new Sequelize("db", "root", "root", {
   host: "localhost",
   dialect: "mysql",
   Storage: "./session.mysql",
+  logging: false,
 });
 
 // sequelize

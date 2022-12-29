@@ -53,6 +53,7 @@ exports.getCart = (req, res, next) => {
   if (!req.session.isLoggedIn) {
     return res.redirect("/login");
   }
+  console.log(req.user);
   req.user
     .getCart()
     .then((cart) => {
@@ -131,7 +132,7 @@ exports.getOrders = (req, res, next) => {
   if (!req.session.isLoggedIn) {
     return res.redirect("/login");
   }
-
+  //eager loading
   req.user
     .getOrders({ include: ["products"] })
     .then((orders) => {

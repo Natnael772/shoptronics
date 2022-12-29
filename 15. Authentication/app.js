@@ -4,11 +4,10 @@ const path = require("path");
 
 const session = require("express-session");
 
-//initialize sequelize with session store
 const sequelizeStore = require("connect-session-sequelize")(session.Store);
 const csrf = require("csurf");
-
 const csrfProtection = csrf();
+const flash = require("connect-flash");
 
 const adminData = require("./routes/admin");
 const shopRoutes = require("./routes/shop.js");
@@ -50,6 +49,7 @@ app.use(
 store.sync();
 
 app.use(csrfProtection);
+app.use(flash());
 
 app.use((req, res, next) => {
   if (!req.session.user) {
@@ -76,9 +76,7 @@ app.use(authRoutes);
 
 app.use(errController.get404Error);
 
-//user created the product
-//ondelete cascade: if the user is deleted, the product will also be gone
-
+//Database relationship
 Product.belongsTo(User, { constraints: true, onDelete: "CASCADE" });
 User.hasMany(Product);
 User.hasOne(Cart);
