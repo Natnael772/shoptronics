@@ -79,6 +79,8 @@ exports.postSignup = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
   const confirmPassword = req.body.confirmPassword;
+  
+  //checking if user exists with that email
   User.findOne({ where: { email: email } }).then((userDoc) => {
     if (userDoc) {
       req.flash("error", "E-mail already exists, Use a different one.");
@@ -87,11 +89,13 @@ exports.postSignup = (req, res, next) => {
     return bcrypt
       .hash(password, 12)
       .then((hashedPassword) => {
+      //creating user
         const user = new User({
           email: email,
           password: hashedPassword,
         });
 
+      //store(save) the user
         return user.save().then(() => {
           user.createCart();
           req.session.isLoggedIn = true;
