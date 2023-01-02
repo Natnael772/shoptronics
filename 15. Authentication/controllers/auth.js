@@ -22,12 +22,15 @@ exports.postLogin = (req, res, next) => {
   const password = req.body.password;
   console.log(email, password);
 
+  //checking if user exists with that email
   User.findOne({ where: { email: email } })
     .then((user) => {
       if (!user) {
         req.flash("error", "invalid email or password");
         return res.redirect("/login");
       }
+    
+    //checking for password
       bcrypt
         .compare(password, user.password)
         .then((doMatch) => {
@@ -35,6 +38,8 @@ exports.postLogin = (req, res, next) => {
             req.session.isLoggedIn = true;
             req.session.user = user;
             console.log(req.session);
+            
+            //store session
             return req.session.save((err) => {
               console.log("redirected");
               res.redirect("/");
