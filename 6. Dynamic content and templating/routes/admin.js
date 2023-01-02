@@ -13,7 +13,7 @@ const rootDir = require("../util/path");
 
 //router works the same as app
 //app.use() vs app.get() or app.post()
-//app.use runs for any incoming http method , and app.get runs for get requiests only
+//app.use runs for any incoming http method , and app.get runs for get requests only
 
 // /admin/add-product => get
 router.get("/add-product", (req, res, next) => {
@@ -21,9 +21,7 @@ router.get("/add-product", (req, res, next) => {
     docTitle: "Add Product",
     path: "/admin/add-product",
   });
-  // res.sendFile(path.join(rootDir, "views", "add-product.html"));
-  // we can also write
-  //   res.sendFile(path.join(__dirname, "..", "views", "add-product.html"));
+
 });
 
 //executes if the request is post
@@ -38,7 +36,7 @@ router.post("/add-product", (req, res, next) => {
   products.push({ title: req.body.title });
   console.log(products);
 
-  // res.send("Accepted");
+
 });
 exports.routes = router;
 exports.products = products;
