@@ -7,7 +7,7 @@ const path = require("path");
 const adminData = require("./admin");
 
 router.get("/", (req, res, next) => {
-  // console.log("In another middleware");
+ 
 
   //res.send() sets header of content-type : text/html by default
   console.log(req.method);
