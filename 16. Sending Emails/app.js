@@ -76,7 +76,7 @@ app.use(authRoutes);
 
 app.use(errController.get404Error);
 
-//Database relationship
+//Db relationship
 Product.belongsTo(User, { constraints: true, onDelete: "CASCADE" });
 User.hasMany(Product);
 User.hasOne(Cart);
