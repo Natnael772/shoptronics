@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 
+//session
 const session = require("express-session");
 
 const sequelizeStore = require("connect-session-sequelize")(session.Store);
