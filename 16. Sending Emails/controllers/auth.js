@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
 const sendGridTransport = require("nodemailer-sendgrid-transport");
 
+//mail transporter
 const transporter = nodemailer.createTransport(
   sendGridTransport({
     auth: {
