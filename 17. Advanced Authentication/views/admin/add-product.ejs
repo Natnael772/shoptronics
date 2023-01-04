@@ -1,0 +1,29 @@
+<%- include ("../includes/head.ejs") %>
+</head>
+  <body>
+    <%- include ("../includes/navigation.ejs") %>
+    <main>
+     
+        <form class="product-form" action = "/admin/<%if(editing) { %>edit-product <%} else { %>add-product<% } %>" method="POST">
+        <div class="form-control">
+          <label for="title">Title</label>
+          <input type="text" name="title" id="title" />
+        </div>
+        <div class="form-control">
+          <label for="imageUrl">Image URL</label>
+          <input type="text" name="imageUrl" id="imageUrl" />
+        </div>
+        <div class="form-control">
+          <label for="price">Price</label>
+          <input type="text" name="price" id="price" />
+        </div>
+        
+        <div class="form-control">
+          <label for="description">Description</label>
+          <textarea name = "description" id="description" rows="5"></textarea>
+          <input type="hidden" name="_csrf" value="<%=csrfToken %>" />
+        <button type="submit" class="btn">Add Product</button>
+      </form>
+    </main>
+  </body>
+</html>
