@@ -97,7 +97,14 @@ exports.postSignup = (req, res, next) => {
           password: hashedPassword,
         });
 
-        return user.save().then(() => {
+        return user.save().then((result) => {
+          transporter.sendMail({
+            to: "natnaeldeyas0@gmail.com",
+            from: "shop@node-complete.com",
+            subject: "Signup succeeded",
+            html: <h1>You successfully signed up</h1>,
+          });
+
           user.createCart();
           req.session.isLoggedIn = true;
           req.session.user = user;
