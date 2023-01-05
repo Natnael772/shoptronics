@@ -102,7 +102,7 @@ exports.postSignup = (req, res, next) => {
             to: "natnaeldeyas0@gmail.com",
             from: "shop@node-complete.com",
             subject: "Signup succeeded",
-            html: <h1>You successfully signed up</h1>,
+            html: "<h1>You successfully signed up</h1>",
           });
 
           user.createCart();
@@ -116,5 +116,13 @@ exports.postSignup = (req, res, next) => {
         });
       })
       .catch((err) => console.log(err));
+  });
+};
+exports.getReset = (req, res, next) => {
+  let message = req.flash("error");
+  res.render("auth/reset", {
+    docTitle: "Reset",
+    path: "/reset",
+    errorMessage: message,
   });
 };
