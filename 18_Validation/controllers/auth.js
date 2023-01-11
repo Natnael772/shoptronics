@@ -100,39 +100,34 @@ exports.postSignup = (req, res, next) => {
       errorMessage: errors.array()[0].msg,
     });
   }
-  User.findOne({ where: { email: email } }).then((userDoc) => {
-    if (userDoc) {
-      req.flash("error", "E-mail already exists, Use a different one.");
-      return res.redirect("/signup");
-    }
-    return bcrypt
-      .hash(password, 12)
-      .then((hashedPassword) => {
-        const user = new User({
-          email: email,
-          password: hashedPassword,
-        });
 
-        return user.save().then((result) => {
-          // transporter.sendMail({
-          //   to: email,
-          //   from: "natnaeldeyas0@gmail.com",
-          //   subject: "Signup succeeded",
-          //   html: "<h1>You successfully signed up</h1>",
-          // });
+  bcrypt
+    .hash(password, 12)
+    .then((hashedPassword) => {
+      const user = new User({
+        email: email,
+        password: hashedPassword,
+      });
 
-          user.createCart();
-          req.session.isLoggedIn = true;
-          req.session.user = user;
-          console.log(req.session);
-          return req.session.save((err) => {
-            console.log("redirected");
-            res.redirect("/");
-          });
+      return user.save().then((result) => {
+        // transporter.sendMail({
+        //   to: email,
+        //   from: "natnaeldeyas0@gmail.com",
+        //   subject: "Signup succeeded",
+        //   html: "<h1>You successfully signed up</h1>",
+        // });
+
+        user.createCart();
+        req.session.isLoggedIn = true;
+        req.session.user = user;
+        console.log(req.session);
+        return req.session.save((err) => {
+          console.log("redirected");
+          res.redirect("/");
         });
-      })
-      .catch((err) => console.log(err));
-  });
+      });
+    })
+    .catch((err) => console.log(err));
 };
 exports.getReset = (req, res, next) => {
   let message = req.flash("error");
