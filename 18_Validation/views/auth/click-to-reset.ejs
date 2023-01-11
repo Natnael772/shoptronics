@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include("../includes/head.ejs") %>
+  </head>
+
+  <body>
+    <%- include("../includes/navigation.ejs") %>
+
+    <main>
+      <p>You requested a password reset</p>
+      <p>
+        Click this <a href="/reset/<%=token%>">link</a> to set a new password.
+      </p>
+    </main>
+  </body>
+</html>
