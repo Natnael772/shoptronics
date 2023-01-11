@@ -31,7 +31,7 @@ router.post(
   //Checking for the password
   body("confirmPassword").custom((value, { req }) => {
     if (value !== req.body.password) {
-      throw new Error("Passwords don't match");
+      throw new Error("Passwords have to match");
     }
     return true;
   }),
