@@ -24,13 +24,15 @@ router.post(
       //  return true;
 
       //returns promise
-      return User.findOne({ where: { email: email } }).then((userDoc) => {
-        if (userDoc) {
-          return Promise.reject(
-            "Email alreay exists. Please pick a different one"
-          );
+      return User.findOne({ where: { email: req.body.email } }).then(
+        (userDoc) => {
+          if (userDoc) {
+            return Promise.reject(
+              "Email alreay exists. Please pick a different one"
+            );
+          }
         }
-      });
+      );
     }),
 
   //checks body of the request
