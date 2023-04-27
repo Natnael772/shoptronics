@@ -110,12 +110,12 @@ exports.postSignup = (req, res, next) => {
       });
 
       return user.save().then((result) => {
-        // transporter.sendMail({
-        //   to: email,
-        //   from: "natnaeldeyas0@gmail.com",
-        //   subject: "Signup succeeded",
-        //   html: "<h1>You successfully signed up</h1>",
-        // });
+        transporter.sendMail({
+          to: email,
+          from: "natnaeldeyas0@gmail.com",
+          subject: "Signup succeeded",
+          html: "<h1>You successfully signed up</h1>",
+        });
 
         user.createCart();
         req.session.isLoggedIn = true;
