@@ -55,6 +55,7 @@ exports.postLogin = (req, res, next) => {
     })
     .catch((err) => console.log(err));
 };
+
 exports.postLogout = (req, res, next) => {
   req.session.destroy((err) => {
     console.log(err);
@@ -90,7 +91,7 @@ exports.postSignup = (req, res, next) => {
     return bcrypt
       .hash(password, 12)
       .then((hashedPassword) => {
-      //creating user
+      //create user
         const user = new User({
           email: email,
           password: hashedPassword,
