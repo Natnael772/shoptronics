@@ -17,6 +17,7 @@ exports.getLogin = (req, res, next) => {
     errorMessage: message,
   });
 };
+
 exports.postLogin = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
