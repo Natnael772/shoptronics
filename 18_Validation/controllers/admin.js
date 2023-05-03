@@ -1,6 +1,7 @@
 const db = require("../util/database");
 const Product = require("../models/product");
 
+//Get products
 exports.getAddproduct = (req, res, next) => {
   if (!req.session.isLoggedIn) {
     return res.redirect("/login");
@@ -12,6 +13,7 @@ exports.getAddproduct = (req, res, next) => {
   });
 };
 
+//Add product
 exports.postAddProduct = (req, res, next) => {
   if (!req.session.isLoggedIn) {
     return res.redirect("/login");
