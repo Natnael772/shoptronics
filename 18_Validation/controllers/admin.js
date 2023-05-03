@@ -86,6 +86,8 @@ exports.getEditProduct = (req, res, next) => {
       console.log(err);
     });
 };
+
+//Edit product
 exports.postEditProduct = (req, res, next) => {
   if (!req.session.isLoggedIn) {
     return res.redirect("/login");
